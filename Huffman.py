@@ -19,6 +19,7 @@ class Huffman:
             self.left = left
             self.right = right
             self.huff = '' # Huffman value [0/1]
+         
             
         def __lt__(self, nxt):
             """ Compare function
@@ -75,7 +76,7 @@ class Huffman:
             right.huff = 1
             newNode = self.node(left.freq + right.freq, left.symbol + right.symbol, left, right)    # Construct internal node
             heapq.heappush(nodes, newNode)                                                          
-        return self.__construct_dict(nodes[0])
+        self.__construct_dict(nodes[0])
   
             
     def print_codewords(self):
@@ -94,8 +95,30 @@ class Huffman:
         Returns:
             string: Encoded message
         """
+        if not msg: return
         encoded_msg = ''
         for c in msg:
-            encoded_msg += self.codeword_dict[c]
+            encoded_msg += self.codeword_dict[c]+ ' '
         return encoded_msg
+    
+    
+    def huffman_decode(self, msg):
+        """ decode any message using rev_codeword_dictionary
+
+        Args:
+            msg (string): Message 
+
+        Returns:
+            string: Decoded message
+        """
+        if not msg: return
+        msg = msg.split(' ')[:-1]
+        decoded_msg = ''
+        rev_dict = {v: k for k, v in self.codeword_dict.items()}
+        for c in msg:
+           decoded_msg += rev_dict[c]
+        return decoded_msg
+           
             
+                       
+         
