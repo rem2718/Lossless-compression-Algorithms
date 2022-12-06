@@ -1,7 +1,7 @@
 # Importing the important libraries
 from decimal import Decimal
 from decimal import getcontext
-getcontext().prec = 2000 # Specifying the precision
+getcontext().prec = 10000 # Specifying the precision
 
 # This is the class that implements the Arithmetic Compression Algorithm
 class Arithmetic:
