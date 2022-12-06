@@ -1,7 +1,7 @@
 # Importing the important libraries
 from decimal import Decimal
 from decimal import getcontext
-getcontext().prec = 1500 # Specifying the precision
+getcontext().prec = 2000 # Specifying the precision
 
 # This is the class that implements the Arithmetic Compression Algorithm
 class Arithmetic:
@@ -24,7 +24,7 @@ class Arithmetic:
         cur = Decimal('0.0')
         for c in self.prob_table:
             c_prob_table[c] = cur
-            cur += Decimal("%.2f" % self.prob_table[c])    
+            cur += Decimal("%.10f" % self.prob_table[c])    
         return c_prob_table
    
     
@@ -35,12 +35,13 @@ class Arithmetic:
         Returns:
             ans (Decimal): The mean value of the message interval(encoded message)
         """
+        if not msg: return
         min_lev = Decimal('0.0')
         max_lev = Decimal('1.0')
         r = max_lev - min_lev                                               # Whole number line between 0-1 
         for c in msg:                                                       # Looping over the entire message
             min_lev += self.c_prob_table[c] * r                             # Min value of the interval
-            r *= Decimal("%.4f" % self.prob_table[c])                       # Current interval length 
+            r *= Decimal("%.10f" % self.prob_table[c])                       # Current interval length 
             max_lev = min_lev + r                                           # Max value of the interval 
         ans = (min_lev + max_lev)/Decimal("%.1f" % 2.0)                     # Mean of the last interval
         return ans.normalize()                                              # Trimming the zeros
@@ -54,13 +55,14 @@ class Arithmetic:
         Returns:
             ans (string): Decoded message
         """
+        if not msg: return
         ans = ''
         min_lev = Decimal('0.0')
         max_lev = Decimal('1.0')
         r = max_lev - min_lev                                               # Whole number line between 0-1
         for i in range(n):                                                  # Looping till we get all the characters
             for c in self.prob_table:                                       # Looping on the number line till we find our interval
-                cur_interval = Decimal("%.2f" % self.prob_table[c]) * r     # Try all the intervals     
+                cur_interval = Decimal("%.10f" % self.prob_table[c]) * r     # Try all the intervals     
                 max_lev = min_lev + cur_interval 
                 if msg < max_lev:                                          # If its within the interval:
                     r = cur_interval                                        # Expand the interval
