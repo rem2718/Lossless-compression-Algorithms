@@ -12,7 +12,7 @@ A program that implements 3 types of lossless compression algorithms: LZW, Huffm
  pip install -r requirements.txt
 ```
 
-3.Open _Main.py_ file and run it, you can see a results of 3 encoded messages(stored in _input.txt_) using 3 different algorithms and their running time.
+3.Open _Main.py_ file and run it, you can see a results of 3 encoded messages(stored in _input.txt_) and their running time.
 
 4.Run _Manual.py_ if you wanna specify the alphabet and the message manually(it reads _input2.txt_).
 
@@ -56,7 +56,6 @@ its constructor takes one parameter **prob_table** which is a dictionary contain
 - Be careful when you specify the frequency table and message in _input2.txt_, otherwise you might end up with an encoded message longer than the original one! for that reason we used a random generator, check the _Main.py_ file(it safer).
 - _input.txt_ is generated randomly from the file _Main.py_, it contains 3 strings each message has different alphabet and length.
 - The implementation of Arithmetic encoding is very simple here and not efficient. It depends on the programming language, in python I used Decimal library to specify the precision of the decimal number, however there more efficient ways using different programming languages.
-- For simplicity I added the parameter 'n' to arithmetic*decode function, though its not needed, there are different ways to implement it, check the references in the \_Report.pdf*.
 - Arithmetic is very slow, so try a message length not longer than 1000 characters.
 - For more information about the algorithms, check _Report.pdf_.
 
