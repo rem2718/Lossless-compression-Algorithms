@@ -4,14 +4,6 @@ from io import StringIO
 # This is the class that implements the Huffman Compression Algorithm 
 class LZW:
     
-    def __init__(self, alphabet):
-        """ Constructor
-
-        Args:
-            alphabet (list): alphabet of the message
-        """
-        self.alphabet = alphabet
-              
     def LZW_encode(self, msg):
         """ Encode any message using dictionary
 
@@ -23,8 +15,8 @@ class LZW:
         """
         if not msg: return
         w = ""
-        i = len(self.alphabet)
-        dictionary = dict(zip(self.alphabet, [j for j in range(i)])) # Initial dictionary for the alphabet
+        i = 256
+        dictionary = {chr(i): i for i in range(i)} # Initial dictionary for the alphabet(All ASCII codes)
         result = ''
         for c in msg:
             wc = w + c
@@ -50,8 +42,8 @@ class LZW:
             string: Decoded message
         """
         if not msg: return
-        i = len(self.alphabet)
-        dictionary = dict(zip([j for j in range(i)], self.alphabet)) # Initial reverse dictionary for the alphabet
+        i = 256
+        dictionary = {i: chr(i) for i in range(i)} # Initial reverse dictionary for the alphabet
         msg = list(map(int, msg.split(' ')))                         # Convert msg to int list
         result = StringIO()                                          # Instead of string to decrease running time
         w = dictionary[msg.pop(0)]
